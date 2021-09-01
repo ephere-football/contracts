@@ -1,0 +1,39 @@
+{
+  "name": "ephere",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "npm run truffle develop",
+    "remixd": "./node_modules/.bin/remixd -s $(pwd)/contracts --remix-ide https://remix.ethereum.org",
+    "test": "npm run truffle test",
+    "truffle": "./node_modules/.bin/truffle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/truffle-box/drizzle-box.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/truffle-box/drizzle-box/issues"
+  },
+  "homepage": "https://github.com/truffle-box/drizzle-box#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.1",
+    "@truffle/hdwallet-provider": "^1.5.0",
+    "pify": "^5.0.0"
+  },
+  "devDependencies": {
+    "remixd": "^0.2.4-alpha.0",
+    "truffle": "^5.1.64"
+  },
+  "truffleTestGenerator": {
+    "contractsPath": "app/src/contracts",
+    "testsPath": "test"
+  }
+}
