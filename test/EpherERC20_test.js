@@ -18,11 +18,29 @@ contract('EpherERC20', (accounts) => {
     await evm.revert(snapshotId);
   });
 
+  it('should fail if quarer param is invalid (less than 1) when trying to mint Core Team tokens', async () => {
+    try {
+      const epher = await EpherERC20.new({ from: owner });
+      await epher.mintCoreTeam(0);
+    } catch (err) {
+      assert.equal(err.reason, "Invalid param: quarter");
+    }
+  });
+
+  it('should fail if quarer param is invalid (greater than 6) when trying to mint Core Team tokens', async () => {
+    try {
+      const epher = await EpherERC20.new({ from: owner });
+      await epher.mintCoreTeam(7);
+    } catch (err) {
+      assert.equal(err.reason, "Invalid param: quarter");
+    }
+  });
+
   it('should fail if Core Team Q1 tokens try to be minted before 30 days has passed after EPH creation', async () => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(30) - 1);
-      await epher.mintCoreTeamQ1();
+      await epher.mintCoreTeam(1);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q1 tokens can only be minted 30 days after EPH token creation");
     }
@@ -32,8 +50,8 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(30) + 1);
-      await epher.mintCoreTeamQ1();
-      await epher.mintCoreTeamQ1();
+      await epher.mintCoreTeam(1);
+      await epher.mintCoreTeam(1);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q1 tokens were minted already");
     }
@@ -42,7 +60,7 @@ contract('EpherERC20', (accounts) => {
   it('should return if Core Team Q1 tokens try to be minted 30 days after EPH creation', async () => {
     const epher = await EpherERC20.new({ from: owner });
     await evm.increaseTime(daysToSeconds(30) + 1);
-    const tx = await epher.mintCoreTeamQ1();
+    const tx = await epher.mintCoreTeam(1);
     const transferToM1 = tx.logs[0];
     const transferToM2 = tx.logs[1];
     const transferToM3 = tx.logs[2];
@@ -61,7 +79,7 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(120) - 1);
-      await epher.mintCoreTeamQ2();
+      await epher.mintCoreTeam(2);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q2 tokens can only be minted 120 days after EPH token creation");
     }
@@ -71,8 +89,8 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(120) + 1);
-      await epher.mintCoreTeamQ2();
-      await epher.mintCoreTeamQ2();
+      await epher.mintCoreTeam(2);
+      await epher.mintCoreTeam(2);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q2 tokens were minted already");
     }
@@ -81,7 +99,7 @@ contract('EpherERC20', (accounts) => {
   it('should return if Core Team Q2 tokens try to be minted 120 days after EPH creation', async () => {
     const epher = await EpherERC20.new({ from: owner });
     await evm.increaseTime(daysToSeconds(120) + 1);
-    const tx = await epher.mintCoreTeamQ2();
+    const tx = await epher.mintCoreTeam(2);
     const transferToM1 = tx.logs[0];
     const transferToM2 = tx.logs[1];
     const transferToM3 = tx.logs[2];
@@ -100,7 +118,7 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(210) - 1);
-      await epher.mintCoreTeamQ3();
+      await epher.mintCoreTeam(3);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q3 tokens can only be minted 210 days after EPH token creation");
     }
@@ -110,8 +128,8 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(210) + 1);
-      await epher.mintCoreTeamQ3();
-      await epher.mintCoreTeamQ3();
+      await epher.mintCoreTeam(3);
+      await epher.mintCoreTeam(3);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q3 tokens were minted already");
     }
@@ -120,7 +138,7 @@ contract('EpherERC20', (accounts) => {
   it('should return if Core Team Q3 tokens try to be minted 210 days after EPH creation', async () => {
     const epher = await EpherERC20.new({ from: owner });
     await evm.increaseTime(daysToSeconds(210) + 1);
-    const tx = await epher.mintCoreTeamQ3();
+    const tx = await epher.mintCoreTeam(3);
     const transferToM1 = tx.logs[0];
     const transferToM2 = tx.logs[1];
     const transferToM3 = tx.logs[2];
@@ -139,7 +157,7 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(300) - 1);
-      await epher.mintCoreTeamQ4();
+      await epher.mintCoreTeam(4);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q4 tokens can only be minted 300 days after EPH token creation");
     }
@@ -149,8 +167,8 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(300) + 1);
-      await epher.mintCoreTeamQ4();
-      await epher.mintCoreTeamQ4();
+      await epher.mintCoreTeam(4);
+      await epher.mintCoreTeam(4);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q4 tokens were minted already");
     }
@@ -159,7 +177,7 @@ contract('EpherERC20', (accounts) => {
   it('should return if Core Team Q4 tokens try to be minted 300 days after EPH creation', async () => {
     const epher = await EpherERC20.new({ from: owner });
     await evm.increaseTime(daysToSeconds(300) + 1);
-    const tx = await epher.mintCoreTeamQ4();
+    const tx = await epher.mintCoreTeam(4);
     const transferToM1 = tx.logs[0];
     const transferToM2 = tx.logs[1];
     const transferToM3 = tx.logs[2];
@@ -178,7 +196,7 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(390) - 1);
-      await epher.mintCoreTeamQ5();
+      await epher.mintCoreTeam(5);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q5 tokens can only be minted 390 days after EPH token creation");
     }
@@ -188,8 +206,8 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(390) + 1);
-      await epher.mintCoreTeamQ5();
-      await epher.mintCoreTeamQ5();
+      await epher.mintCoreTeam(5);
+      await epher.mintCoreTeam(5);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q5 tokens were minted already");
     }
@@ -198,7 +216,7 @@ contract('EpherERC20', (accounts) => {
   it('should return if Core Team Q5 tokens try to be minted 390 days after EPH creation', async () => {
     const epher = await EpherERC20.new({ from: owner });
     await evm.increaseTime(daysToSeconds(390) + 1);
-    const tx = await epher.mintCoreTeamQ5();
+    const tx = await epher.mintCoreTeam(5);
     const transferToM1 = tx.logs[0];
     const transferToM2 = tx.logs[1];
     const transferToM3 = tx.logs[2];
@@ -217,7 +235,7 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(480) - 1);
-      await epher.mintCoreTeamQ6();
+      await epher.mintCoreTeam(6);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q6 tokens can only be minted 480 days after EPH token creation");
     }
@@ -227,8 +245,8 @@ contract('EpherERC20', (accounts) => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await evm.increaseTime(daysToSeconds(480) + 1);
-      await epher.mintCoreTeamQ6();
-      await epher.mintCoreTeamQ6();
+      await epher.mintCoreTeam(6);
+      await epher.mintCoreTeam(6);
     } catch (err) {
       assert.equal(err.reason, "Core Team Q6 tokens were minted already");
     }
@@ -237,7 +255,7 @@ contract('EpherERC20', (accounts) => {
   it('should return if Core Team Q6 tokens try to be minted 480 days after EPH creation', async () => {
     const epher = await EpherERC20.new({ from: owner });
     await evm.increaseTime(daysToSeconds(480) + 1);
-    const tx = await epher.mintCoreTeamQ6();
+    const tx = await epher.mintCoreTeam(6);
     const transferToM1 = tx.logs[0];
     const transferToM2 = tx.logs[1];
     const transferToM3 = tx.logs[2];
