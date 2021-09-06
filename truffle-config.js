@@ -4,6 +4,9 @@ const path = require("path");
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
+  api_keys: {
+    etherscan: "ZPNV87NWSXY48CNWFV2458VM5I4PQJE9N3"
+  },
   compilers: {
     solc: {
       version: "^0.8.7",
@@ -21,6 +24,14 @@ module.exports = {
       port: 8545,
       network_id: "*"
     },
+    mainnet: {
+      provider: () => new HDWalletProvider(
+        "8d3ce5a409878ef5e99769502974ab0e9a931c0581676021364e86463baf5976",
+        "wss://mainnet.infura.io/ws/v3/a3753149ae364a1594d08a2af20c7b09"
+      ),
+      network_id: 1,
+      gas: 4000000
+    },
     rinkeby: {
       provider: () => new HDWalletProvider(
         "8d3ce5a409878ef5e99769502974ab0e9a931c0581676021364e86463baf5976",
@@ -37,5 +48,8 @@ module.exports = {
       network_id: 3,
       gas: 4000000
     }
-  }
+  },
+  plugins: [
+    "truffle-plugin-verify"
+  ]
 };

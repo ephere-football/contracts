@@ -30,7 +30,8 @@
   },
   "devDependencies": {
     "remixd": "^0.2.4-alpha.0",
-    "truffle": "^5.1.64"
+    "truffle": "^5.1.64",
+    "truffle-plugin-verify": "^0.5.13"
   },
   "truffleTestGenerator": {
     "contractsPath": "app/src/contracts",
