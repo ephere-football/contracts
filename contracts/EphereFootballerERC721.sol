@@ -18,7 +18,7 @@ contract EphereFootballerERC721 is
 {
   using Counters for Counters.Counter;
   
-  string private constant BASE_TOKEN_URI = "https://ipfs.io/ipfs/";
+  string private constant BASE_TOKEN_URI = "https://ipfs.ephere.io/ipfs/";
 
   bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
   bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
