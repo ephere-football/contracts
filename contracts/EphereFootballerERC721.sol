@@ -23,10 +23,13 @@ contract EphereFootballerERC721 is
   bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
   bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
+  uint public immutable _maxSupply;
+
   mapping(uint256 => string) _cid;
   Counters.Counter private _tokenIdTracker;
 
-  constructor() ERC721("Ephere Football Player", "EFP") {
+  constructor(uint maxSupply) ERC721("Ephere Football Player", "EFP") {
+    _maxSupply = maxSupply;
     _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
     _setupRole(MINTER_ROLE, _msgSender());
     _setupRole(PAUSER_ROLE, _msgSender());
@@ -34,6 +37,7 @@ contract EphereFootballerERC721 is
 
   function mint(string memory cid, address to) public virtual {
     require(hasRole(MINTER_ROLE, _msgSender()), "EphereFootballerERC721: must have minter role to mint");
+    require(totalSupply() < _maxSupply, "EphereFootballerERC721: cannot exceed max total supply");
 
     // We cannot just use balanceOf to create the new tokenId because tokens
     // can be burned (destroyed), so we need a separate counter.
