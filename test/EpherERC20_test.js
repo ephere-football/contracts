@@ -18,7 +18,7 @@ contract('EpherERC20', (accounts) => {
     await evm.revert(snapshotId);
   });
 
-  it('should fail if quarer param is invalid (less than 1) when trying to mint Core Team tokens', async () => {
+  it('should fail if quarter param is invalid (less than 1) when trying to mint Core Team tokens', async () => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await epher.mintCoreTeam(0);
@@ -27,7 +27,7 @@ contract('EpherERC20', (accounts) => {
     }
   });
 
-  it('should fail if quarer param is invalid (greater than 6) when trying to mint Core Team tokens', async () => {
+  it('should fail if quarter param is invalid (greater than 6) when trying to mint Core Team tokens', async () => {
     try {
       const epher = await EpherERC20.new({ from: owner });
       await epher.mintCoreTeam(7);
