@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "npm run truffle develop",
-    "remixd": "./node_modules/.bin/remixd -s $(pwd)/contracts --remix-ide https://remix.ethereum.org",
+    "remixd": "./node_modules/.bin/remixd -s $(pwd) --remix-ide https://remix.ethereum.org",
     "test": "npm run truffle test",
     "truffle": "./node_modules/.bin/truffle"
   },

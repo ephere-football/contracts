@@ -1,3 +1,6 @@
 [submodule "third_party/opensea-creatures"]
 	path = third_party/opensea-creatures
 	url = https://github.com/ProjectOpenSea/opensea-creatures
+[submodule "third_party/provable-things"]
+	path = third_party/provable-things
+	url = https://github.com/provable-things/ethereum-api
