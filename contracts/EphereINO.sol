@@ -11,7 +11,7 @@ import "../third_party/opensea-creatures/contracts/IFactoryERC721.sol";
 contract OwnableDelegateProxy {}
 
 contract ProxyRegistry {
-    mapping(address => OwnableDelegateProxy) public proxies;
+  mapping(address => OwnableDelegateProxy) public proxies;
 }
 
 contract EphereINO is
@@ -82,7 +82,7 @@ contract EphereINO is
   /**
    * NFT address:
    *  - Mainnet: 0xea7c74254dcdb338a36b8d88f02b8951901a0f30
-   *  - Rinkeby: 0xa58e7dcf8b4b61fec504ee4bb0945d5c9a2b3f50
+   *  - Rinkeby: 0xF48b4c5E2C7115Fb696b5401648D47E07a83194C
    *
    * OpenSea ProxyRegistry address:
    *  - Mainnet: 0xa5409ec958c83c3f309868babaca7c86dcb077c1
@@ -112,7 +112,7 @@ contract EphereINO is
   }
 
   function numOptions() override public pure returns (uint) {
-    return NUM_OPTIONS + 26;
+    return NUM_OPTIONS + 23;
   }
 
   function supportsFactoryInterface() override public pure returns (bool) {
