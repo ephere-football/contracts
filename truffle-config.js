@@ -1,6 +1,12 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const path = require("path");
 
+require('dotenv').config();
+
+if (!process.env.PRIVATE_KEY) {
+  throw Error("Please set the PRIVATE_KEY envinronment variable");
+}
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -26,7 +32,7 @@ module.exports = {
     },
     mainnet: {
       provider: () => new HDWalletProvider(
-        "8d3ce5a409878ef5e99769502974ab0e9a931c0581676021364e86463baf5976",
+        process.env.PRIVATE_KEY,
         "wss://mainnet.infura.io/ws/v3/a3753149ae364a1594d08a2af20c7b09"
       ),
       network_id: 1,
@@ -34,7 +40,7 @@ module.exports = {
     },
     rinkeby: {
       provider: () => new HDWalletProvider(
-        "8d3ce5a409878ef5e99769502974ab0e9a931c0581676021364e86463baf5976",
+        process.env.PRIVATE_KEY,
         "wss://rinkeby.infura.io/ws/v3/9f06f42ed15b4a9b807cfe44a50e70e1"
       ),
       network_id: 4,
@@ -42,11 +48,25 @@ module.exports = {
     },
     ropsten: {
       provider: () => new HDWalletProvider(
-        "8d3ce5a409878ef5e99769502974ab0e9a931c0581676021364e86463baf5976",
+        process.env.PRIVATE_KEY,
         "wss://ropsten.infura.io/ws/v3/3e9869b4a3e142bb8292bde2e00762f8"
       ),
       network_id: 3,
       gas: 4000000
+    },
+    smartchain: {
+      provider: () => new HDWalletProvider(
+        process.env.PRIVATE_KEY,
+        "https://bsc-dataseed1.binance.org:443"
+      ),
+      network_id: 56
+    },
+    smartchaintest: {
+      provider: () => new HDWalletProvider(
+        process.env.PRIVATE_KEY,
+        "https://data-seed-prebsc-1-s1.binance.org:8545"
+      ),
+      network_id: 97
     }
   },
   plugins: [
