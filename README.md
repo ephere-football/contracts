@@ -6,8 +6,8 @@
 
 ### Binance Smart Chain
 
-EphereERC20: _
-EphereFootballerERC721: _
+EphereERC20: 0xfCf71d52d1aD105A4Dcf5809af5Bd560ABDaca0c
+EphereFootballerERC721: 0xF48b4c5E2C7115Fb696b5401648D47E07a83194C
 
 ### Binance Smart Chain Tesnet
 
