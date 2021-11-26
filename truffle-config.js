@@ -55,9 +55,10 @@ module.exports = {
       gas: 4000000
     },
     smartchain: {
+      skipDryRun: true,
       provider: () => new HDWalletProvider(
         process.env.PRIVATE_KEY,
-        "https://bsc-dataseed1.binance.org:443"
+        "https://bsc-dataseed2.binance.org:443"
       ),
       network_id: 56
     },
