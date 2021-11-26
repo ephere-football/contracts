@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
 
-contract EpherERC20 is ERC20Capped, Ownable {
+contract EphereERC20 is ERC20Capped, Ownable {
 
   struct Minted {
     uint coreTeam;
@@ -27,7 +27,7 @@ contract EpherERC20 is ERC20Capped, Ownable {
 
   Minted  private _minted;
 
-  constructor() ERC20("Epher", "EPH") ERC20Capped(_maxSupply) {
+  constructor() ERC20("Ephere", "EPH") ERC20Capped(_maxSupply) {
     // Using ERC20._mint because of https://github.com/OpenZeppelin/openzeppelin-contracts/issues/2580
     ERC20._mint(_walletAdvisors,    _maxSupply * 6 / 100);
     ERC20._mint(_walletPrivateSale, _maxSupply * 6 / 100);

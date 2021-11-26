@@ -29,6 +29,7 @@
     "pify": "^5.0.0"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "remixd": "^0.2.4-alpha.0",
     "truffle": "^5.1.64",
     "truffle-plugin-verify": "^0.5.13"
