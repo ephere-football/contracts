@@ -1,11 +1,7 @@
 {
-  "name": "contracts",
-  "version": "1.0.0",
+  "name": "ephere-football",
+  "version": "0.0.1",
   "description": "Collection of smart contracts used at Ephere",
-  "main": "truffle-config.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "dev": "npm run truffle develop",
     "remixd": "./node_modules/.bin/remixd -s $(pwd) --remix-ide https://remix.ethereum.org",
