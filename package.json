@@ -1,7 +1,7 @@
 {
-  "name": "ephere",
+  "name": "contracts",
   "version": "1.0.0",
-  "description": "",
+  "description": "Collection of smart contracts used at Ephere",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
@@ -14,22 +14,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/truffle-box/drizzle-box.git"
+    "url": "git+https://github.com/ephere-football/contracts.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Agu Rodríguez",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/truffle-box/drizzle-box/issues"
+    "url": "https://github.com/ephere-football/contracts/issues"
   },
-  "homepage": "https://github.com/truffle-box/drizzle-box#readme",
+  "homepage": "https://github.com/ephere-football/contracts#readme",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.4.0",
-    "@truffle/hdwallet-provider": "^1.7.0",
-    "pify": "^5.0.0"
+    "@openzeppelin/contracts": "^4.4.0"
   },
   "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.7.0",
     "dotenv": "^10.0.0",
+    "pify": "^5.0.0",
     "remixd": "^0.2.4-alpha.0",
     "truffle": "^5.4.22",
     "truffle-plugin-verify": "^0.5.18"
