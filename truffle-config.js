@@ -11,7 +11,7 @@ module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
   api_keys: {
-    etherscan: "ZPNV87NWSXY48CNWFV2458VM5I4PQJE9N3"
+    bscscan: "GMHN6UZRG3UYHHXHTS3K3E9U5BQ3KZ86YB"
   },
   compilers: {
     solc: {

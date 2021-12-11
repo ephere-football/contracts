@@ -19,6 +19,6 @@ EphereFootballerERC721: 0xb281d917239a74013F319636aECf1DEAbFB79D28
 Verify contract:
 
 ```bash
-truffle run verify EphereERC20@0x2cc768c4bd51641c545c5463617d36ea0aaf6053 --network smartchain
-truffle run verify EphereERC721@0x2cc768c4bd51641c545c5463617d36ea0aaf6053 --network smartchain
+truffle run verify EphereERC20@0xfCf71d52d1aD105A4Dcf5809af5Bd560ABDaca0c --network smartchain
+truffle run verify EphereFootballerERC721@0xF48b4c5E2C7115Fb696b5401648D47E07a83194C --network smartchain
 ```
