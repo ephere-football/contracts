@@ -89,7 +89,6 @@ contract EphereERC20 is ERC20Capped, Ownable {
       uint amount = _marketingSupply * 2 / 100;
       ERC20._mint(_marketingWallet, amount);
     } else {
-      // require(false, Strings.toString(_listingDate + _oneQuarter * _minted.marketing));
       uint amount = _marketingSupply * 1 / 100;
       ERC20._mint(_marketingWallet, amount);
     }
