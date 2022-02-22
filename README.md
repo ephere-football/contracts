@@ -6,7 +6,7 @@
 
 Contract               | BSC                                        | Testnet
 -----------------------|--------------------------------------------|--------------------------------------------|
-EphereERC20            | [0xfCf71d52d1aD105A4Dcf5809af5Bd560ABDaca0c](https://bscscan.com/token/0xfCf71d52d1aD105A4Dcf5809af5Bd560ABDaca0c) | 0x2983a8654d3923f4ABADA00331865c9C06B5AaB4 |
+EphereERC20            | [0x5BE0dC17e9E29B7D4504Fb9C2a614cE5d784C2d9](https://bscscan.com/token/0x5BE0dC17e9E29B7D4504Fb9C2a614cE5d784C2d9) | 0xFe939206e967e4CB3cdc873DD952e48BC71231e6 |
 EphereFootballerERC721 | [0xF48b4c5E2C7115Fb696b5401648D47E07a83194C](https://bscscan.com/token/0xF48b4c5E2C7115Fb696b5401648D47E07a83194C) | 0xb281d917239a74013F319636aECf1DEAbFB79D28 |
 
 ## Useful commands
