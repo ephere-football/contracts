@@ -49,8 +49,7 @@ contract EphereERC20 is ERC20Capped, Ownable {
 
   constructor(address pinkAntiBotAddress) ERC20("Ephere", "EPH") ERC20Capped(_maxSupply) {
     // Minting 15% (Public Sale) + 10% (Liquidity Pool)
-    // Using ERC20._mint because of https://github.com/OpenZeppelin/openzeppelin-contracts/issues/2580
-    ERC20._mint(msg.sender, _maxSupply * 25 / 100);
+    _mint(msg.sender, _maxSupply * 25 / 100);
 
     // Setting pink-antibot
     if (pinkAntiBotAddress != msg.sender) {
@@ -71,14 +70,14 @@ contract EphereERC20 is ERC20Capped, Ownable {
   function mintAdvisorsTokens() public onlyAfterListing("Advisors", _oneYear) onlyOwner {
     require(_minted.advisors == false, "Advisors tokens were already minted");
 
-    ERC20._mint(_advisorsWallet, _advisorsSupply);
+    _mint(_advisorsWallet, _advisorsSupply);
     _minted.advisors = true;
   }
 
   function mintCoreTeamTokens() public onlyAfterListing("Core Team", _oneYear) onlyOwner {
     require(_minted.coreTeam == false, "Core Team tokens were already minted");
 
-    ERC20._mint(_coreTeamWallet, _coreTeamSupply);
+    _mint(_coreTeamWallet, _coreTeamSupply);
     _minted.coreTeam = true;
   }
 
@@ -87,11 +86,11 @@ contract EphereERC20 is ERC20Capped, Ownable {
     require(block.timestamp > _listingDate + _oneQuarter * _minted.marketing, strcc("Marketing tokens cannot be minted before ", _listingDate + _oneQuarter * _minted.marketing));
 
     if (_minted.marketing == 0) {
-      uint amount = _marketingSupply * 2 / 100;
-      ERC20._mint(_marketingWallet, amount);
+      uint amount = _marketingSupply * 20 / 100;
+      _mint(_marketingWallet, amount);
     } else {
-      uint amount = _marketingSupply * 1 / 100;
-      ERC20._mint(_marketingWallet, amount);
+      uint amount = _marketingSupply * 10 / 100;
+      _mint(_marketingWallet, amount);
     }
 
     _minted.marketing += 1;
@@ -102,11 +101,11 @@ contract EphereERC20 is ERC20Capped, Ownable {
     require(block.timestamp > _listingDate + playToEarnVesting * _minted.playToEarn, strcc(strcc(strcc("Play to Earn tokens (", _minted.playToEarn), ") cannot be minted before "), _listingDate + playToEarnVesting * _minted.playToEarn));
 
     if (_minted.playToEarn == 0) {
-      ERC20._mint(_playToEarnWallet, _playToEarnISupply);
+      _mint(_playToEarnWallet, _playToEarnISupply);
     } else if (_minted.playToEarn == 1) {
-      ERC20._mint(_playToEarnWallet, _playToEarnISupply - _playToEarnIDisc);
+      _mint(_playToEarnWallet, _playToEarnISupply - _playToEarnIDisc);
     } else {
-      ERC20._mint(_playToEarnWallet, _playToEarnISupply - _playToEarnIDisc - _playToEarnPiDisc * (_minted.playToEarn - 1));
+      _mint(_playToEarnWallet, _playToEarnISupply - _playToEarnIDisc - _playToEarnPiDisc * (_minted.playToEarn - 1));
     }
 
     _minted.playToEarn += 1;
@@ -121,7 +120,8 @@ contract EphereERC20 is ERC20Capped, Ownable {
   function mintPrivateSaleTokens() public onlyAfterListing("Private Sale", 0) onlyOwner {
     require(_minted.privateSale == false, "Private Sale tokens were already minted"); 
 
-    ERC20._mint(_privateSaleWallet, _privateSaleSupply);
+    _mint(_privateSaleWallet, _privateSaleSupply);
+    _minted.privateSale = true;
   }
 
   function setPlayToEarnVesting(uint vestingSeconds) public onlyOwner {
