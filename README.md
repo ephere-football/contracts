@@ -14,6 +14,6 @@ EphereFootballerERC721 | [0xF48b4c5E2C7115Fb696b5401648D47E07a83194C](https://bs
 Verify contract:
 
 ```bash
-truffle run verify EphereERC20@0xfCf71d52d1aD105A4Dcf5809af5Bd560ABDaca0c --network smartchain
+truffle run verify EphereERC20@0x5BE0dC17e9E29B7D4504Fb9C2a614cE5d784C2d9 --network smartchain
 truffle run verify EphereFootballerERC721@0xF48b4c5E2C7115Fb696b5401648D47E07a83194C --network smartchain
 ```
