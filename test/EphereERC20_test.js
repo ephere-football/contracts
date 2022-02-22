@@ -258,14 +258,18 @@ contract('EphereERC20', (accounts) => {
   it('should return if marketing tokens try to be minted correctly', async () => {
     const erc20 = await EphereERC20.new(owner, { from: owner });
 
+    var sum = new BN(0);
     for (var i = 0; i < 9; i++) {
       await evm.increaseTime(secsToTLE + daysToSecs(90 * i) + 60);
       const tx = await erc20.mintMarketingTokens();
       const transfer = tx.logs[0];
       assert.equal(transfer.event, "Transfer");
       assert.equal(transfer.args.to, "0x84435fb5B645dd6290B9714f5a47482F2826b39D");
-      assert.equal(transfer.args.value.toString(), i === 0 ? "360000000000000000000000" : "180000000000000000000000");
+      assert.equal(transfer.args.value.toString(), i === 0 ? "3600000000000000000000000" : "1800000000000000000000000");
+      sum = sum.add(transfer.args.value);
     }
+
+    assert.equal(sum.toString(), "18000000000000000000000000");
   });
 
   it('should fail when trying to mint play to earn tokens (0) before TLE', async () => {
@@ -343,6 +347,7 @@ contract('EphereERC20', (accounts) => {
       new BN("70680000000000000000000")
     ];
 
+    var sum = new BN(0);
     for (var i = 0, previousTransfer = new BN("5725080000000000000000000"); i < 47; i++) {
       await evm.increaseTime(secsToTLE + daysToSecs(30 * i) + 60);
       const tx = await erc20.mintPlayToEarnTokens();
@@ -351,6 +356,114 @@ contract('EphereERC20', (accounts) => {
       assert.equal(transfer.args.to, "0xD90918CB8adF7daEbaD19AB53bCe2917f8e36077");
       assert.equal(transfer.args.value.toString(), previousTransfer.sub(expectedDecrease[Math.min(i, 2)]).toString());
       previousTransfer = transfer.args.value;
+      sum = sum.add(transfer.args.value);
     }
+
+    assert.equal(sum.toString(), "186000000000000000000000000");
+  });
+
+  it('should fail when trying to mint private sale tokens before TLE', async () => {
+    const erc20 = await EphereERC20.new(owner, { from: owner });
+
+    try {
+      await erc20.mintPrivateSaleTokens();
+      throw ({ reason: "Couldn't catch expected exception" });
+    } catch (err) {
+      assert.equal(err.reason, "Private Sale tokens cannot be minted before " + (tle));
+    }
+  });
+
+  it('should fail if private sale tokens try to be minted twice', async () => {
+    const erc20 = await EphereERC20.new(owner, { from: owner });
+    await evm.increaseTime(secsToTLE + 60);
+    await erc20.mintPrivateSaleTokens();
+
+    try {
+      await erc20.mintPrivateSaleTokens();
+      throw ({ reason: "Couldn't catch expected exception" });
+    } catch (err) {
+      assert.equal(err.reason, "Private Sale tokens were already minted");
+    }
+  });
+
+  it('should return if private sale tokens try to be minted after TLE', async () => {
+    const erc20 = await EphereERC20.new(owner, { from: owner });
+    await evm.increaseTime(secsToTLE + 60);
+    const tx = await erc20.mintPrivateSaleTokens();
+    const transfer = tx.logs[0];
+    assert.equal(transfer.event, "Transfer");
+    assert.equal(transfer.args.to, "0xf28FdC5aD77f1426A0cD7F2Dac3f96d93C11d385");
+    assert.equal(transfer.args.value.toString(), "6000000000000000000000000");
+  });
+
+  it('should return if all tokens try to be minted correctly', async () => {
+    const erc20 = await EphereERC20.new(owner, { from: owner });
+    const expectedDecrease = [
+      new BN("0"),
+      new BN("215760000000000000000000"),
+      new BN("70680000000000000000000")
+    ];
+
+    await evm.increaseTime(secsToTLE + daysToSecs(356 * 5) + 60);
+    
+    // advisors
+    const txAdvisors = await erc20.mintAdvisorsTokens();
+    const transferAdvisors = txAdvisors.logs[0];
+    assert.equal(transferAdvisors.event, "Transfer");
+    assert.equal(transferAdvisors.args.to, "0xB86bfB0d2b11E2B86b63F7fbD995765474c71f3f");
+    assert.equal(transferAdvisors.args.value.toString(), "9000000000000000000000000");
+
+    // core team
+    const txCoreTeam = await erc20.mintCoreTeamTokens();
+    const transferCoreTeam = txCoreTeam.logs[0];
+    assert.equal(transferCoreTeam.event, "Transfer");
+    assert.equal(transferCoreTeam.args.to, "0xB621E20f17aafC11ff7408D15B3449ab0dd3FC93");
+    assert.equal(transferCoreTeam.args.value.toString(), "6000000000000000000000000");
+
+    // marketing
+    var sumMarketing = new BN(0);
+    for (var i = 0; i < 9; i++) {
+      const txMarketing = await erc20.mintMarketingTokens();
+      const transferMarketing = txMarketing.logs[0];
+      assert.equal(transferMarketing.event, "Transfer");
+      assert.equal(transferMarketing.args.to, "0x84435fb5B645dd6290B9714f5a47482F2826b39D");
+      assert.equal(transferMarketing.args.value.toString(), i === 0 ? "3600000000000000000000000" : "1800000000000000000000000");
+      sumMarketing = sumMarketing.add(transferMarketing.args.value);
+    }
+    assert.equal(sumMarketing.toString(), "18000000000000000000000000");
+
+    // play to earn
+    var sumPlayToEarn = new BN(0);
+    for (var i = 0, previousTransfer = new BN("5725080000000000000000000"); i < 47; i++) {
+      const txPlayToEarn = await erc20.mintPlayToEarnTokens();
+      const transferP2E = txPlayToEarn.logs[0];
+      assert.equal(transferP2E.event, "Transfer");
+      assert.equal(transferP2E.args.to, "0xD90918CB8adF7daEbaD19AB53bCe2917f8e36077");
+      assert.equal(transferP2E.args.value.toString(), previousTransfer.sub(expectedDecrease[Math.min(i, 2)]).toString());
+      previousTransfer = transferP2E.args.value;
+      sumPlayToEarn = sumPlayToEarn.add(transferP2E.args.value);
+    }
+    assert.equal(sumPlayToEarn.toString(), "186000000000000000000000000");
+
+    // private sale
+    const txPrivateSale = await erc20.mintPrivateSaleTokens();
+    const transferPrivateSale = txPrivateSale.logs[0];
+    assert.equal(transferPrivateSale.event, "Transfer");
+    assert.equal(transferPrivateSale.args.to, "0xf28FdC5aD77f1426A0cD7F2Dac3f96d93C11d385");
+    assert.equal(transferPrivateSale.args.value.toString(), "6000000000000000000000000");
+
+    // assert supply
+    const cap = await erc20.cap();
+    const balance = await erc20.balanceOf(owner);
+
+    const sum = balance
+         .add(transferAdvisors.args.value)
+         .add(transferCoreTeam.args.value)
+         .add(sumMarketing)
+         .add(sumPlayToEarn)
+         .add(transferPrivateSale.args.value);
+
+    assert.equal(cap.toString(), "300000000000000000000000000");
+    assert.equal(sum.toString(), cap.toString());
   });
 });
