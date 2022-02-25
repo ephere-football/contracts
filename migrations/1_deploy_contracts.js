@@ -1,5 +1,6 @@
 const EphereERC20 = artifacts.require("EphereERC20");
 const EphereFootballerERC721 = artifacts.require("EphereFootballerERC721");
+const EpherePassportERC721 = artifacts.require("EpherePassportERC721");
 
 module.exports = async (deployer, network, accounts) => {
   const pinkAntiBotAddress = {
@@ -10,4 +11,5 @@ module.exports = async (deployer, network, accounts) => {
 
   await deployer.deploy(EphereERC20, pinkAntiBotAddress[network]);
   await deployer.deploy(EphereFootballerERC721, 200000000);
+  await deployer.deploy(EpherePassportERC721, 500);
 };
