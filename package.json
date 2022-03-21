@@ -28,7 +28,6 @@
     "dotenv": "^10.0.0",
     "lodash": "^4.17.21",
     "pify": "^5.0.0",
-    "remixd": "^0.2.4-alpha.0",
     "truffle": "^5.4.22",
     "truffle-plugin-verify": "^0.5.20"
   },
