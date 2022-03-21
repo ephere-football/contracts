@@ -1,6 +1,6 @@
 {
   "name": "ephere-football",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Collection of smart contracts used at Ephere",
   "scripts": {
     "dev": "npm run truffle develop",
